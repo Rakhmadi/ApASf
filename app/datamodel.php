@@ -10,6 +10,7 @@ class datamodel extends Model
     protected $fillable=
     [
         'name_product',
-        'discription'
+        'discription',
+        '',
     ];
 }

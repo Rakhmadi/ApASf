@@ -18,13 +18,13 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
 Route::post('register','auths@reg');
 Route::post('login','auths@logs');
-Route::get('logout','auths@log');
+Route::get('logout','auths@log')->middleware('auth:api');
 Route::get('cek','auths@opt')->middleware('auth:api');
 route::get('apps','auths@resxt')->middleware('auth:api');
 route::get('lihat','auths@show')->middleware('auth:api');
 route::post('simpan','auths@added')->middleware('auth:api');
-route::get('/del/{id}','auths@del')->middleware('auth:api');
-route::put('/update/{id}','auths@updt')->middleware('auth:api');
-route::get('/singel/{id}','auths@one')->middleware('auth:api');
+route::get('/del/ {id}','auths@del')->middleware('auth:api');
+route::get('/update/{id}','auths@updt')->middleware('auth:api');
+route::put('/singel/{id}','auths@one')->middleware('auth:api');
 
 

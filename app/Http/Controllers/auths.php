@@ -37,13 +37,18 @@ class auths extends Controller
                 'msg'=>$vals->errors()
             ],401);
         }
+    
         $r=Auth::attempt([
             'name'=>$reqs->name,
             'password'=>$reqs->password
         ]);
+        $f=bcrypt(Auth::user()->email);
+        $e=User::findOrfail(Auth::user()->id);
+        $e->api_token =$f;
+        $e->save();
         if($r){
             $v=Auth::user($r);
-            return response()->json(['msg'=>'successLogin','token'=>Auth::user()->api_token,'user'=>$v]);
+            return response()->json(['msg'=>'successLogin','token'=>$f]);
         }else {
             return response()->json(['msg'=>'wrong user and password']);
         }
@@ -53,8 +58,10 @@ class auths extends Controller
         $r=Auth::check();
         return response()->json(['msq'=>$r,'user'=>Auth::user()]);
     }
-    public function log(){
-        Auth::logout();
+    public function log(User $d){
+        $e=User::findorfail(Auth::user()->id);
+        $e->api_token=str_random(100);
+        $e->update();
         return response()->json(['msg'=>'succes']);
     }
     public function resxt(){
